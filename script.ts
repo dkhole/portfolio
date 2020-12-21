@@ -147,44 +147,43 @@ function animeDotBack(): void {
     })
 }
 
-function renderProjects(): void {
+function placeBackDot() {
     const titleWrap: HTMLElement = document.getElementById('title-wrap');
-    const content: HTMLElement = document.getElementById('content-wrap');
     const dot: HTMLElement = document.getElementById('dot');
     const backDot: HTMLElement = document.createElement('div');
     backDot.id = "back-dot";
     const back: HTMLElement = document.createElement('span');
     back.textContent = "←";
-    const proj: HTMLElement = document.createElement('span');
-    proj.textContent = 'Projects';
 
     titleWrap.appendChild(backDot);
     backDot.appendChild(back);
 
-    content.id = "projects-wrap";
-
     //position backdot ontop of dot
     backDot.style.top = `${dot.getBoundingClientRect().top}px`;
     backDot.style.left = `${dot.getBoundingClientRect().left + 3}px`;
+}
 
-    titleWrap.appendChild(proj);
-  
-    createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
+function backDotEventListener(opt: number): void {
 
-    createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
-
-    fadeElementsIn();
+    
 
     setTimeout( function() { 
+        const backDot: HTMLElement = document.getElementById('back-dot');
         
         backDot.addEventListener('click', (e) => {
-
-            
     
             fadeElementsOut();
     
             setTimeout( function() { 
-                content.id = "content-wrap";
+
+                if(opt === 0) {
+                    //from projects page
+                    const content: HTMLElement = document.getElementById('projects-wrap');
+                    content.id = "content-wrap";
+                } else {
+                    //if changing class name from about page edit
+                }
+                
                 clearPage(); 
                 renderHome();
                 animeDotBack();
@@ -198,7 +197,42 @@ function renderProjects(): void {
                 navListEventListeners();
             }, 6000 );
         });
-    }, 1000 );    
+    }, 1000 );  
+}
+
+function renderProjects(): void {
+    const titleWrap: HTMLElement = document.getElementById('title-wrap');
+    const content: HTMLElement = document.getElementById('content-wrap');
+    const proj: HTMLElement = document.createElement('span');
+
+    placeBackDot();
+    
+    proj.textContent = 'Projects';
+    content.id = "projects-wrap";
+    titleWrap.appendChild(proj);
+  
+    createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
+    createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
+
+    fadeElementsIn();
+
+    backDotEventListener(0);
+}
+
+function renderAbout(): void {
+    const titleWrap: HTMLElement = document.getElementById('title-wrap');
+    const content: HTMLElement = document.getElementById('content-wrap');
+
+    const about: HTMLElement = document.createElement('span');
+
+    placeBackDot();
+    
+    about.textContent = 'About';
+    titleWrap.appendChild(about);
+
+    fadeElementsIn();
+
+    backDotEventListener(1); 
 }
 
 function navListEventListeners(): void {
@@ -240,7 +274,10 @@ function navListEventListeners(): void {
                 }, 4000 );
             } else {
                 //about page
-
+                setTimeout( function() { 
+                    clearPage(); 
+                    renderAbout();
+                }, 4000 );
             }
             
         });

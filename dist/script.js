@@ -114,31 +114,33 @@ function animeDotBack() {
         easing: 'easeInOutElastic(1, .5)'
     });
 }
-function renderProjects() {
+function placeBackDot() {
     var titleWrap = document.getElementById('title-wrap');
-    var content = document.getElementById('content-wrap');
     var dot = document.getElementById('dot');
     var backDot = document.createElement('div');
     backDot.id = "back-dot";
     var back = document.createElement('span');
     back.textContent = "←";
-    var proj = document.createElement('span');
-    proj.textContent = 'Projects';
     titleWrap.appendChild(backDot);
     backDot.appendChild(back);
-    content.id = "projects-wrap";
     //position backdot ontop of dot
     backDot.style.top = dot.getBoundingClientRect().top + "px";
     backDot.style.left = dot.getBoundingClientRect().left + 3 + "px";
-    titleWrap.appendChild(proj);
-    createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
-    createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
-    fadeElementsIn();
+}
+function backDotEventListener(opt) {
     setTimeout(function () {
+        var backDot = document.getElementById('back-dot');
         backDot.addEventListener('click', function (e) {
             fadeElementsOut();
             setTimeout(function () {
-                content.id = "content-wrap";
+                if (opt === 0) {
+                    //from projects page
+                    var content = document.getElementById('projects-wrap');
+                    content.id = "content-wrap";
+                }
+                else {
+                    //if changing class name from about page edit
+                }
                 clearPage();
                 renderHome();
                 animeDotBack();
@@ -151,6 +153,29 @@ function renderProjects() {
             }, 6000);
         });
     }, 1000);
+}
+function renderProjects() {
+    var titleWrap = document.getElementById('title-wrap');
+    var content = document.getElementById('content-wrap');
+    var proj = document.createElement('span');
+    placeBackDot();
+    proj.textContent = 'Projects';
+    content.id = "projects-wrap";
+    titleWrap.appendChild(proj);
+    createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
+    createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
+    fadeElementsIn();
+    backDotEventListener(0);
+}
+function renderAbout() {
+    var titleWrap = document.getElementById('title-wrap');
+    var content = document.getElementById('content-wrap');
+    var about = document.createElement('span');
+    placeBackDot();
+    about.textContent = 'About';
+    titleWrap.appendChild(about);
+    fadeElementsIn();
+    backDotEventListener(1);
 }
 function navListEventListeners() {
     //onload add event listeners to links
@@ -188,6 +213,10 @@ function navListEventListeners() {
             }
             else {
                 //about page
+                setTimeout(function () {
+                    clearPage();
+                    renderAbout();
+                }, 4000);
             }
         });
     };
