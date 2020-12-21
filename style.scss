@@ -12,9 +12,41 @@ html, body {
     font-family: var(--title-ff);
     margin: 0;
     padding: 0;
+    
 }
 
-.title-wrap {
+#dot {
+    height: 9px;
+    width: 9px;
+    position: absolute;
+    top: 11.7%;
+}
+
+#back-dot {
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    background-color: orange;
+    border-radius: 50%;
+    margin: 0;
+    padding: 0;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s;
+    transform: scale(4);
+    cursor: pointer;
+
+    span {
+        margin: 0;
+        padding: 0;
+        font-size: 9px;
+    }
+}
+
+
+#title-wrap {
+    position: relative;
     width: 100vw;
     height: 200px;
     text-align: center;
@@ -23,15 +55,28 @@ html, body {
     margin: 0;
     padding: 0;
     margin-bottom: 30px;
+    opacity: 0;
+    transition: opacity 1.5s;
+    
+
+    #name {
+        #name-dot {
+            color: orange;
+        }
+    }
 }
 
-#main-nav-wrap {
+
+
+#content-wrap {
     width: 100%;
     height: calc(100% - 200px);
     padding: 0;
     margin:0;
     display: flex;
     justify-content: center;
+    transition: opacity 1.5s;
+    opacity: 0;
 
     ul {
         padding: 0;
@@ -56,6 +101,8 @@ html, body {
 
 #projects-wrap {
     width: 100%;
+    opacity: 0;
+    transition: opacity 1.5s;
 
     .project {
         height: 500px;
