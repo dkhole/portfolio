@@ -43,14 +43,21 @@ function createProject(title: string, desc: string): void {
     info.className = "info";
 
     const projTitle: HTMLElement = document.createElement('span');
+    projTitle.className = "proj-title";
     projTitle.textContent = title;
     const projDesc: HTMLElement = document.createElement('span');
     projDesc.textContent = desc;
+    projDesc.className = "proj-desc";
+
+    const lineBr1: HTMLElement= document.createElement('br');
+    const lineBr2: HTMLElement= document.createElement('br');
 
     content.appendChild(project);
     project.appendChild(screenshot);
     project.appendChild(info);
     info.appendChild(projTitle);
+    info.appendChild(lineBr1);
+    info.appendChild(lineBr2);
     info.appendChild(projDesc);
 }
 
@@ -147,7 +154,7 @@ function renderProjects(): void {
     const backDot: HTMLElement = document.createElement('div');
     backDot.id = "back-dot";
     const back: HTMLElement = document.createElement('span');
-    back.textContent = "<";
+    back.textContent = "←";
     const proj: HTMLElement = document.createElement('span');
     proj.textContent = 'Projects';
 
@@ -157,8 +164,8 @@ function renderProjects(): void {
     content.id = "projects-wrap";
 
     //position backdot ontop of dot
-    backDot.style.top = `${dot.getBoundingClientRect().top + 17.4}px`;
-    backDot.style.left = `${dot.getBoundingClientRect().left + 18}px`;
+    backDot.style.top = `${dot.getBoundingClientRect().top}px`;
+    backDot.style.left = `${dot.getBoundingClientRect().left + 3}px`;
 
     titleWrap.appendChild(proj);
   
@@ -169,15 +176,15 @@ function renderProjects(): void {
     fadeElementsIn();
 
     setTimeout( function() { 
-        dot.style.opacity = '0';
+        
         backDot.addEventListener('click', (e) => {
 
-            dot.style.opacity = '1';
-            content.id = "content-wrap";
+            
     
             fadeElementsOut();
     
             setTimeout( function() { 
+                content.id = "content-wrap";
                 clearPage(); 
                 renderHome();
                 animeDotBack();

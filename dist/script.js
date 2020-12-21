@@ -33,13 +33,19 @@ function createProject(title, desc) {
     var info = document.createElement('div');
     info.className = "info";
     var projTitle = document.createElement('span');
+    projTitle.className = "proj-title";
     projTitle.textContent = title;
     var projDesc = document.createElement('span');
     projDesc.textContent = desc;
+    projDesc.className = "proj-desc";
+    var lineBr1 = document.createElement('br');
+    var lineBr2 = document.createElement('br');
     content.appendChild(project);
     project.appendChild(screenshot);
     project.appendChild(info);
     info.appendChild(projTitle);
+    info.appendChild(lineBr1);
+    info.appendChild(lineBr2);
     info.appendChild(projDesc);
 }
 function clearPage() {
@@ -115,26 +121,24 @@ function renderProjects() {
     var backDot = document.createElement('div');
     backDot.id = "back-dot";
     var back = document.createElement('span');
-    back.textContent = "<";
+    back.textContent = "←";
     var proj = document.createElement('span');
     proj.textContent = 'Projects';
     titleWrap.appendChild(backDot);
     backDot.appendChild(back);
     content.id = "projects-wrap";
     //position backdot ontop of dot
-    backDot.style.top = dot.getBoundingClientRect().top + 17.4 + "px";
-    backDot.style.left = dot.getBoundingClientRect().left + 18 + "px";
+    backDot.style.top = dot.getBoundingClientRect().top + "px";
+    backDot.style.left = dot.getBoundingClientRect().left + 3 + "px";
     titleWrap.appendChild(proj);
     createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
     createProject("Project Title", "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odio velit quaerat illum at aspernatur consectetur corporis eum nam hic quam cum ut necessitatibus optio obcaecati, provident distinctio, possimus maiores excepturi nobis animi aut. Quam vel provident, repudiandae facere ducimus esse aperiam ex totam adipisci quis ea unde ipsum aliquam ratione!");
     fadeElementsIn();
     setTimeout(function () {
-        dot.style.opacity = '0';
         backDot.addEventListener('click', function (e) {
-            dot.style.opacity = '1';
-            content.id = "content-wrap";
             fadeElementsOut();
             setTimeout(function () {
+                content.id = "content-wrap";
                 clearPage();
                 renderHome();
                 animeDotBack();
